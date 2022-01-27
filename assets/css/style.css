@@ -5,6 +5,7 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
     font-family: 'Montserrat', 'sans-serif';
+    margin: 0;
 }
 
 a {
@@ -36,9 +37,14 @@ a {
     align-items:center;
 }
 
+canvas {
+    left: 0;
+    position: inherit;
+}
+
 .nav_logo {
     height: 8vh;
     padding-left: 1vh;
     padding-top: 1vh;
-    padding-bottom: 2vh;
+    padding-bottom: 1vh;
 }
