@@ -96,8 +96,10 @@ Scum Gang!
                 <h2><a href="#" class="nav_item">OTHER SHIRTS</a></h2>
             </div>
         </div>
-        <script src="https://threejs.org/build/three.js" crossorigin="anonymous"></script>
-        <script>
+        <script type="module">
+			import * as THREE from "./assets/libraries/three.module.js";
+			import { MTLLoader } from "./assets/libraries/MTLLoader.js";
+			import { OBJLoader } from "./assets/libraries/OBJLoader.js";
             let g = new Object();
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -105,18 +107,64 @@ Scum Gang!
             var renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
             renderer.setSize( window.innerWidth, window.innerHeight );
             document.body.appendChild( renderer.domElement );
-            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-            var cube = new THREE.Mesh( geometry, material );
-            scene.add( cube );
 
             camera.position.z = 5;
+            const light = new THREE.SpotLight(0xffffff);
+			light.position.set(0, 10, 10);
+			light.target.position.set(0, 0, 0);
+			light.castShadow = true;
+			light.penumbra = 0.7
+			light.decay = 1;
+			scene.add(light);
+			scene.add(light.target);
+			const ambient = new THREE.AmbientLight( 0xffffff, 0.1 );
+			scene.add( ambient )
+            var LoadMdl = function(MatN, ObjN, Name, cb) {
+                var mesh = null;
+				if(MatN == '') {return;}
+				var mtlLoader = new MTLLoader();
+				mtlLoader.load( MatN, function( materials ) {
+
+				materials.preload();
+
+					var objLoader = new OBJLoader();
+					objLoader.setMaterials( materials );
+					objLoader.load( ObjN, function ( object ) {
+
+						mesh = object;
+						mesh.name = Name;
+						cb(mesh)
+					} );
+					return mesh;
+				} );
+			};
+            
+            var shirts = new THREE.Group();
+            LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
+                m.position.x = -5;
+                m.scale.set(0.05,0.05,0.05)
+                shirts.add(m);
+            });
+
+            LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
+                m.scale.set(0.05,0.05,0.05)
+                shirts.add(m);
+            });
+
+            LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
+                m.scale.set(0.05,0.05,0.05)
+                m.position.x = 5;
+                shirts.add(m);
+            });
+
+            scene.add(shirts);
 
             var animate = function () {
                 requestAnimationFrame( animate );
 
-                cube.rotation.x += 0.01;
-                cube.rotation.y += 0.01;
+                shirts.children.forEach(child => {
+                    child.rotation.y += 0.01;
+                })
 
                 renderer.render( scene, camera );
             };

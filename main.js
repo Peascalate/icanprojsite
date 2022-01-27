@@ -5,15 +5,17 @@ const path = require('path')
 const app = fastify();
 const c = require('./cutil')
 
+// Plugins
 app.register(autoload, {
     dir: path.join(__dirname, 'routes')
 });
 
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, 'public')
+app.register(static, {
+    root: path.join(__dirname, 'assets'),
+    prefix: '/assets/', 
 });
 
-// Start Node
+// Start WS
 const start_node = async () => {
   try {
     c.info("Attempting to start WS at port 80")

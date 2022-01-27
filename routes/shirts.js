@@ -2,10 +2,10 @@ const c = require('../cutil')
 
 module.exports = function (app, opts, next) {
     app.get('/', (rq,re)=> {
-        re.sendFile("html/index.html");
+        re.sendFile("index.html");
     });
-    c.info("Loaded routes from 'root.js'");
+    c.info("Loaded routes from 'shirts.js'");
     next();
 }
 
-module.exports.autoPrefix = '/'
+module.exports.autoPrefix = '/shirt'
