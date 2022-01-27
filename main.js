@@ -19,7 +19,7 @@ app.register(static, {
 const start_node = async () => {
   try {
     c.info("Attempting to start WS at port 80")
-    await app.listen(80)
+    await app.listen(80, '10.0.0.105')
     c.success("Started WS successfully!")
   } catch (err) {
     c.error("Failed to start WS!\n Error info:\n\n");

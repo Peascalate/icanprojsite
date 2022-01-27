@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "fastify": "^3.27.0",
+    "fastify-autoload": "^3.10.0",
+    "fastify-static": "^4.5.0"
+  }
+}

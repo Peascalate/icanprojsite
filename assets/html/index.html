@@ -88,6 +88,7 @@ Scum Gang!
         <link rel="stylesheet" href="../assets/css/style.css">
     </head>
     <body>
+        
         <div class="navflop">
             <img class="nav_logo" src="../assets/img/dtl_l.png"/>
             <div class="nav_menu">
@@ -140,20 +141,9 @@ Scum Gang!
 			};
             
             var shirts = new THREE.Group();
-            LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
-                m.position.x = -5;
-                m.scale.set(0.05,0.05,0.05)
-                shirts.add(m);
-            });
-
+        
             LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
                 m.scale.set(0.05,0.05,0.05)
-                shirts.add(m);
-            });
-
-            LoadMdl("./assets/model_data/base_shirt.mtl", "./assets/model_data/base_shirt.obj", "na", (m)=> {
-                m.scale.set(0.05,0.05,0.05)
-                m.position.x = 5;
                 shirts.add(m);
             });
 
@@ -174,7 +164,14 @@ Scum Gang!
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 			});
-
+            function audio_play() {
+                var audio = new Audio('../assets/audio/gol.mp3');
+                audio.play();
+                audio.volume = 0.2;
+                document.removeEventListener('click', audio_play);
+            }
+            document.addEventListener('click', audio_play);
+            
             animate();
 
         </script>
