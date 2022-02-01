@@ -120,19 +120,18 @@ Scum Gang!
 			scene.add(light.target);
 			const ambient = new THREE.AmbientLight( 0xffffff, 0.1 );
 			scene.add( ambient )
-            var LoadMdl = function(MatN, ObjN, Name, cb) {
+            var LoadMdl = function(TN, ObjN, Name, cb) {
                 var mesh = null;
-				if(MatN == '') {return;}
-				var mtlLoader = new MTLLoader();
-				mtlLoader.load( MatN, function( materials ) {
-
-				materials.preload();
-
+				if(TN == '') {return;}
+				const texture = new THREE.TextureLoader().load( '../assets/img/st_1.png', (t) => {
+                    const mat = new THREE.MeshBasicMaterial( { map: t } );
+                   
 					var objLoader = new OBJLoader();
-					objLoader.setMaterials( materials );
 					objLoader.load( ObjN, function ( object ) {
 
 						mesh = object;
+                        mesh.material = mat;
+
 						mesh.name = Name;
 						cb(mesh)
 					} );
