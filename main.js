@@ -2,6 +2,7 @@ const fastify = require('fastify')
 const autoload = require('fastify-autoload');
 const static = require('fastify-static')
 const path = require('path')
+const ip = require("ip");
 const app = fastify();
 const c = require('./cutil')
 
@@ -19,7 +20,7 @@ app.register(static, {
 const start_node = async () => {
   try {
     c.info("Attempting to start WS at port 80")
-    await app.listen(80)
+    await app.listen(80, ip.address("private"))
     c.success("Started WS successfully!")
   } catch (err) {
     c.error("Failed to start WS!\n Error info:\n\n");
