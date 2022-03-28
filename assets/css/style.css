@@ -16,10 +16,17 @@ a {
 
     padding-top: 4vw;
     padding-bottom: 2vw;
+    margin: 1vw;
     display: flex;
     width: 100vw;
     height: 40%;
     
+}
+
+.shirtperv {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
 }
 
 .eyelandgyal {
